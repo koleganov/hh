@@ -98,7 +98,7 @@ export function Features() {
               variants={fadeUpVariant}
               custom={index}
               style={{ willChange: 'transform, opacity' }}
-              className="hover:bg-bg-card hover:border rounded-2xl p-8 text-center hover:border-accent-orange hover:-translate-y-1"
+              className="hover:bg-bg-card hover:border rounded-2xl p-8 text-center hover:border-accent-orange hover:-translate-y-1 transition-colors"
             >
               <div className={`mb-4 ${stat.color}`}>
                 <AnimatedCounter value={stat.number} color={stat.color} />
