@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import { motion, type Variants } from 'framer-motion'
 
 const fadeUpVariant: Variants = {
@@ -18,6 +19,7 @@ export function Courses() {
     {
       title: 'AI Task Software Course',
       description: 'Learn how to create and monetize AI-powered task automation tools',
+      category: 'Automation',
       price: '$199',
       students: '2000+',
       rating: 4.9
@@ -25,6 +27,7 @@ export function Courses() {
     {
       title: 'AI Content Creation',
       description: 'Master AI tools for content creation and build profitable content businesses',
+      category: 'Content',
       price: '$149',
       students: '1500+',
       rating: 4.8
@@ -32,6 +35,7 @@ export function Courses() {
     {
       title: 'AI Trading Strategies',
       description: 'Discover AI-driven trading strategies to generate consistent income',
+      category: 'Trading',
       price: '$299',
       students: '800+',
       rating: 4.9
@@ -39,11 +43,22 @@ export function Courses() {
     {
       title: 'AI Automation for Business',
       description: 'Automate your business processes with AI and increase profitability',
+      category: 'Business',
       price: '$249',
       students: '1200+',
       rating: 4.7
     }
   ]
+
+  const categories = useMemo(
+    () => ['All', ...Array.from(new Set(courses.map((course) => course.category)))],
+    [courses]
+  )
+  const [activeCategory, setActiveCategory] = useState<string>('All')
+  const filteredCourses =
+    activeCategory === 'All'
+      ? courses
+      : courses.filter((course) => course.category === activeCategory)
 
   return (
     <section className="py-[120px] bg-bg-card">
@@ -63,9 +78,28 @@ export function Courses() {
             We don't talk about business — we live it. We don't sell illusions — we show processes.
           </p>
         </motion.div>
-        
+
+        <div className="flex flex-wrap gap-3 justify-center mb-12">
+          {categories.map((category) => {
+            const isActive = category === activeCategory
+            return (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-5 py-2 rounded-full border transition-all duration-200 ${
+                  isActive
+                    ? 'bg-accent-orange text-white border-accent-orange shadow-[0_8px_24px_rgba(255,107,53,0.3)]'
+                    : 'bg-bg-dark text-text-primary border-border hover:border-accent-orange'
+                }`}
+              >
+                {category}
+              </button>
+            )
+          })}
+        </div>
+
         <div className="grid grid-cols-2 gap-10">
-          {courses.map((course, index) => (
+          {filteredCourses.map((course, index) => (
             <motion.div
               key={index}
               initial="hidden"

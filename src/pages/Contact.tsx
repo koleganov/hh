@@ -1,11 +1,11 @@
-import { ContactForm } from '../components/sections/ContactForm'
 
+import { ContactForm } from '../components/sections/ContactForm'
 
 
 export function ContactPage() {
   return (
-    <div className="bg-bg-dark pt-24">
+    <section className="min-h-screen bg-bg-dark pt-22">
       <ContactForm />
-    </div>
+    </section>
   )
 }
